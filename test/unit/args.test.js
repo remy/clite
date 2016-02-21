@@ -61,11 +61,25 @@ test('commands not found and defaults', t => {
   t.end();
 });
 
-test.only('command magic defaults work', t => {
+test('command magic defaults work', t => {
   var res = args(sampleArgs.concat('-v'));
   t.equal(res.command, ':::./version', 'version worked');
 
   var res2 = args(sampleArgs.concat('-h'));
   t.equal(res2.command, ':::./help', 'help worked');
+  t.end();
+});
+
+test('magic detaults don\'t eat user input', t => {
+  var res = args(sampleArgs.concat('-v'), { flags: ['version' ]});
+  t.equal(res.command, 'index', 'command defaulted');
+  t.equal(res.version, true, 'user version flag was kept');
+  t.end();
+});
+
+test('options', t => {
+  var res = args(sampleArgs.concat('-g', 'sed'), { options: ['grep' ]});
+  t.equal(res.command, 'index', 'command defaulted');
+  t.equal(res.grep, 'sed', 'option captured');
   t.end();
 });

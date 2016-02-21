@@ -1,12 +1,13 @@
 {
   "name": "clite",
-  "version": "0.0.0",
   "description": "CLI lite framework",
   "main": "./index.js",
   "scripts": {
-    "test": "tap test/**/*.test.js --cov",
-    "cover": "tap test/**/*.test.js --cov --coverage-report=lcov",
-    "build": "babel src --out-dir lib"
+    "check-only": "! grep 'test.only' test/**/*.test.js -n",
+    "test": "npm run check-only && tap test/**/*.test.js --cov",
+    "cover": "tap test/**/*.test.js --cov --coverage-report=lcov && npm run check-only",
+    "build": "babel src --out-dir lib",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "keywords": [
     "cli",
@@ -19,7 +20,8 @@
     "babel-cli": "^6.5.1",
     "babel-preset-es2015": "^6.5.0",
     "tap": "^5.4.3",
-    "tap-only": "0.0.5"
+    "tap-only": "0.0.5",
+    "semantic-release": "^4.3.5"
   },
   "dependencies": {
     "abbrev": "^1.0.7",
@@ -29,5 +31,9 @@
     "minimist": "^1.2.0",
     "then-fs": "^2.0.0",
     "update-notifier": "^0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remy/clite.git"
   }
 }
