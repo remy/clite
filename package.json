@@ -9,7 +9,7 @@
     "test": "npm run check-only && npm run lint && npm run tap",
     "cover": "tap test/**/*.test.js --cov --coverage-report=lcov && npm run check-only",
     "build": "babel lib --out-dir dist",
-    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "bin": {
     "clite": "cli/index.js"
