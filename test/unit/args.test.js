@@ -13,30 +13,40 @@ test('load', t => {
   t.end();
 });
 
-test('bool flags', t => {
-  var res = args(sampleArgs.concat('--foo', '--bar'));
+test('implicit bools', t => {
+  var res = args(sampleArgs.concat('--foo'));
   t.equal(res.foo, true, 'foo is true');
-  t.equal(res.bar, true, 'bar is true');
+  t.end();
+});
+
+test('bools', t => {
+  var res = args(sampleArgs.concat('--foo'), {
+    booleans: ['foo', 'bar']
+  });
+  t.equal(res.foo, true, 'foo is true');
+  t.equal(res.bar, false, 'bar is true');
   t.deepEqual(res._, sampleArgs, 'no additions args left over');
   t.end();
 });
 
-test('mixed flags', t => {
-  var res = args(sampleArgs.concat('--foo=10', '--bar'));
-  t.equal(res.foo, 10, 'foo is 10');
-  t.equal(res.bar, true, 'bar is true');
+test('mixed args', t => {
+  var res = args(sampleArgs.concat('--foo=10', '--bar=20'), {
+    booleans: [ 'foo' ] // expect true/false
+  });
+  t.equal(res.foo, true, 'foo is true');
+  t.equal(res.bar, 20, 'bar is 20');
   t.end();
 });
 
 test('flag shortcuts', t => {
-  var res = args(sampleArgs.concat('-f=10'), { flags: ['foo', 'bar'] });
+  var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo', 'bar'] });
   t.equal(res.foo, 10, 'foo is 10');
   t.equal(res.bar, false, 'bar default position is false');
   t.end();
 });
 
 test('alias have precedence', t => {
-  var res = args(sampleArgs.concat('-f=10'), { flags: ['foo'], alias: { f: 'far' } });
+  var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo'], alias: { f: 'far' } });
   t.equal(res.foo, false, 'foo is false');
   t.equal(res.far, 10, 'alias won the value');
   t.end();
@@ -70,8 +80,8 @@ test('command magic defaults work', t => {
   t.end();
 });
 
-test('magic detaults don\'t eat user input', t => {
-  var res = args(sampleArgs.concat('-v'), { flags: ['version' ]});
+test('magic defaults don\'t eat user input', t => {
+  var res = args(sampleArgs.concat('-v'), { booleans: ['version' ]});
   t.equal(res.command, 'index', 'command defaulted');
   t.equal(res.version, true, 'user version flag was kept');
   t.end();
