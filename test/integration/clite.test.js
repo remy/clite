@@ -9,6 +9,12 @@ test('throws when no package available', t => {
   });
 });
 
+// test('throws when no package available (bad path)', t => {
+//   return clite({}, ['random/foo']).catch(e => {
+//     t.match(e.message, /no such file or directory/, 'throws when no package found');
+//   });
+// });
+
 test('loads index.js from project root', t => {
   return clite({}, (fixtures + '/basic-clite')).then(res => {
     t.equal(res, 'hello world', 'index.js ran');

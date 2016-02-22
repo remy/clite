@@ -25,7 +25,7 @@ test('bools', t => {
   });
   t.equal(res.foo, true, 'foo is true');
   t.equal(res.bar, false, 'bar is true');
-  t.deepEqual(res._, sampleArgs, 'no additions args left over');
+  t.deepEqual(res._, [], 'no additions args left over');
   t.end();
 });
 
@@ -54,7 +54,7 @@ test('alias have precedence', t => {
 
 test('commands without config', t => {
   var res = args(sampleArgs.concat('run', '-f=10'));
-  t.equal(res.command, 'index', 'command defaulted to index');
+  t.equal(res.command, '.', 'command defaulted to index');
   t.equal(res.f, 10, 'alias won the value');
   t.end();
 });
@@ -82,14 +82,14 @@ test('command magic defaults work', t => {
 
 test('magic defaults don\'t eat user input', t => {
   var res = args(sampleArgs.concat('-v'), { booleans: ['version' ]});
-  t.equal(res.command, 'index', 'command defaulted');
+  t.equal(res.command, '.', 'command defaulted');
   t.equal(res.version, true, 'user version flag was kept');
   t.end();
 });
 
 test('options', t => {
   var res = args(sampleArgs.concat('-g', 'sed'), { options: ['grep' ]});
-  t.equal(res.command, 'index', 'command defaulted');
+  t.equal(res.command, '.', 'command defaulted');
   t.equal(res.grep, 'sed', 'option captured');
   t.end();
 });
