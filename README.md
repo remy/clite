@@ -17,7 +17,7 @@ A *CLI lite* framework for your node CLI utilities. Provides basic routine funct
 - on exceptions, will echo the error and quit with a non-zero exit code
 - automatically creates aliases for all your CLI commands and options using [abbrev](https://www.npmjs.com/package/abbrev)
 - supports boolean flags, options and aliases using [minimist](https://www.npmjs.org/minimist)
-- promise based
+- promise based (note that promises are polyfilled in node < 4, using [es6-promise](https://www.npmjs.com/es6-promise))
 
 ## Usage
 
