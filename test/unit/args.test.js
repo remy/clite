@@ -1,8 +1,10 @@
+'use strict';
+var dist = require('./es5') ? 'dist' : 'lib';
 var test = require('tap-only');
-var args = require('../../lib/args');
+var args = require('../../' + dist + '/args');
 var sampleArgs = ['node', 'script.js'];
 
-test('load', t => {
+test('load', function (t) {
   t.isa(args, 'function', 'args is a function');
   t.throws(args, 'process.argv type expected');
   t.ok(args([]), 'works with argv only arg');
@@ -13,13 +15,13 @@ test('load', t => {
   t.end();
 });
 
-test('implicit bools', t => {
+test('implicit bools', function (t) {
   var res = args(sampleArgs.concat('--foo'));
   t.equal(res.foo, true, 'foo is true');
   t.end();
 });
 
-test('bools', t => {
+test('bools', function (t) {
   var res = args(sampleArgs.concat('--foo'), {
     booleans: ['foo', 'bar']
   });
@@ -29,49 +31,49 @@ test('bools', t => {
   t.end();
 });
 
-test('mixed args', t => {
+test('mixed args', function (t) {
   var res = args(sampleArgs.concat('--foo=10', '--bar=20'), {
-    booleans: [ 'foo' ] // expect true/false
+    booleans: ['foo'] // expect true/false
   });
   t.equal(res.foo, true, 'foo is true');
   t.equal(res.bar, 20, 'bar is 20');
   t.end();
 });
 
-test('flag shortcuts', t => {
+test('flag shortcuts', function (t) {
   var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo', 'bar'] });
   t.equal(res.foo, 10, 'foo is 10');
   t.equal(res.bar, false, 'bar default position is false');
   t.end();
 });
 
-test('alias have precedence', t => {
+test('alias have precedence', function (t) {
   var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo'], alias: { f: 'far' } });
   t.equal(res.foo, false, 'foo is false');
   t.equal(res.far, 10, 'alias won the value');
   t.end();
 });
 
-test('commands without config', t => {
+test('commands without config', function (t) {
   var res = args(sampleArgs.concat('run', '-f=10'));
   t.equal(res.command, '.', 'command defaulted to index');
   t.equal(res.f, 10, 'alias won the value');
   t.end();
 });
 
-test('commands with config', t => {
-  var res = args(sampleArgs.concat('foo'), { commands: { foo: 'bar' }});
+test('commands with config', function (t) {
+  var res = args(sampleArgs.concat('foo'), { commands: { foo: 'bar' } });
   t.equal(res.command, 'bar', 'command found');
   t.end();
 });
 
-test('commands not found and defaults', t => {
-  var res = args(sampleArgs.concat('zoo'), { commands: { foo: 'bar', _: 'default' }});
+test('commands not found and defaults', function (t) {
+  var res = args(sampleArgs.concat('zoo'), { commands: { foo: 'bar', _: 'default' } });
   t.equal(res.command, 'default', 'command found');
   t.end();
 });
 
-test('command magic defaults work', t => {
+test('command magic defaults work', function (t) {
   var res = args(sampleArgs.concat('-v'));
   t.equal(res.command, ':::./version', 'version worked');
 
@@ -80,15 +82,15 @@ test('command magic defaults work', t => {
   t.end();
 });
 
-test('magic defaults don\'t eat user input', t => {
-  var res = args(sampleArgs.concat('-v'), { booleans: ['version' ]});
+test('magic defaults don\'t eat user input', function (t) {
+  var res = args(sampleArgs.concat('-v'), { booleans: ['version'] });
   t.equal(res.command, '.', 'command defaulted');
   t.equal(res.version, true, 'user version flag was kept');
   t.end();
 });
 
-test('options', t => {
-  var res = args(sampleArgs.concat('-g', 'sed'), { options: ['grep' ]});
+test('options', function (t) {
+  var res = args(sampleArgs.concat('-g', 'sed'), { options: ['grep'] });
   t.equal(res.command, '.', 'command defaulted');
   t.equal(res.grep, 'sed', 'option captured');
   t.end();

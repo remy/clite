@@ -5,4 +5,4 @@ try {
   require('es6-promise');
 }
 
-module.exports = require(_ ? './dist' : './lib');
+module.exports = _;

@@ -8,8 +8,8 @@
     "tap": "tap test/**/*.test.js --cov",
     "test": "npm run check-only && npm run lint && npm run tap",
     "cover": "tap test/**/*.test.js --cov --coverage-report=lcov && npm run check-only",
-    "build": "babel src --out-dir lib",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "build": "babel lib --out-dir dist",
+    "semantic-release": "semantic-release pre && npm run build && npm publish && semantic-release post"
   },
   "bin": {
     "clite": "cli/index.js"
@@ -34,6 +34,7 @@
   "dependencies": {
     "abbrev": "^1.0.7",
     "debug": "^2.2.0",
+    "es6-promise": "^3.1.2",
     "lodash.defaults": "^4.0.1",
     "lodash.defaultsdeep": "^4.1.0",
     "minimist": "^1.2.0",
