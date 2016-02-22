@@ -24,6 +24,7 @@ A *CLI lite* framework for your node CLI utilities. Provides basic routine funct
 After `npm install --save clite` to your project, the simplest CLI script contains:
 
 ```js
+#!/usr/bin/env node
 var clite = require('clite');
 clite(require('./config')).then(console.log);
 ```
