@@ -2,7 +2,7 @@
 
 Pronounced: *slight*.
 
-[![Build Status](https://travis-ci.org/remy/clite.svg)](https://travis-ci.org/remy/ clite) [![Donate](https://img.shields.io/badge/donate-%20%E2%9D%A4%20-green.svg)](https://www.paypal.me/rem)
+[![Build Status](https://travis-ci.org/remy/clite.svg)](https://travis-ci.org/remy/clite) [![Donate](https://img.shields.io/badge/donate-%20%E2%9D%A4%20-green.svg)](https://www.paypal.me/rem)
 
 ## Synopsis
 
