@@ -13,6 +13,6 @@ test('gets version from package.json', t => {
 test('gets version from github when missing from package', t => {
   process.argv = sampleArgs.concat('--version');
   return clite({}, fixtures + '/dev-package').then(res => {
-    t.match(res, /^master: /, 'got version');
+    t.match(res, /^(.*): [a-z0-9]{40}/, 'got branch and commit');
   });
 });
