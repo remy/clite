@@ -65,7 +65,7 @@ module.exports = {
 
 Although clite uses promises, your code does not need to use them (but you can if chose to), however, if you `throw` an error, this will echo to the terminal and `exit(1)` the program. The commands modules receive three arguments:
 
-- `args`: an object of the fully parsed CLI arguments
+- `args`: an object of the fully parsed CLI arguments, all command arguments are stored in `args._` as an array
 - `settings`: the configuration of clite (including defaults)
 - `body`: the body of text if content was piped via `STDIN`
 
@@ -77,10 +77,12 @@ module.exports = (args, settings, body) {
     // create the post in the db
     return new Post({
       body,
-      title: args._.[2]
+      title: args._[0]
     }).save().then(r => `Successfully created ${r.id}`);
   }
 };
+
+// called using `cat post.md | my-cli-tool new "Awesome Post Title"
 ```
 
 This also assumes that your bin script is using `.then(console.log)` to redirect responses to the terminal. Of course, you don't have to do that, you can handle printing to the terminal as you please.
