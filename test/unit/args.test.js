@@ -31,6 +31,15 @@ test('bools', function (t) {
   t.end();
 });
 
+test('bools don\'t lose internal defaults', function (t) {
+  var res = args(sampleArgs.concat('-v'), {
+    booleans: ['foo', 'bar']
+  });
+  t.equal(res.foo, false, 'foo is true');
+  t.equal(res.version, true, 'version is true');
+  t.end();
+});
+
 test('mixed args', function (t) {
   var res = args(sampleArgs.concat('--foo=10', '--bar=20'), {
     booleans: ['foo'] // expect true/false
@@ -49,6 +58,7 @@ test('flag shortcuts', function (t) {
 
 test('alias have precedence', function (t) {
   var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo'], alias: { f: 'far' } });
+
   t.equal(res.foo, false, 'foo is false');
   t.equal(res.far, 10, 'alias won the value');
   t.end();
