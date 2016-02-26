@@ -24,3 +24,20 @@ test('throws when no package available', function (t) {
     t.equal(res.args.dev, false, 'dev set found');
   });
 });
+
+test('all args parsed', function (t) {
+  process.argv = sampleArgs.concat('.', '-d');
+  return clite({
+    commands: {
+      _: 'passthrough'
+    },
+    options: ['filter', 'count'],
+    alias: { d: 'dev' },
+    booleans: ['disk', 'json', 'errors', 'dev', 'production', 'optional',
+      'bundled', 'extraneous'],
+    help: 'usage.txt'
+  }).then(function (res) {
+    t.isa(res.args.filter, 'undefined', 'filter is not there');
+    t.equal(res.args.dev, true, 'dev set');
+  });
+});
