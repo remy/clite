@@ -15,6 +15,6 @@ test('gets version from package.json', function (t) {
 test('gets version from github when missing from package', function (t) {
   process.argv = sampleArgs.concat('--version');
   return clite({}, fixtures + '/dev-package').then(function (res) {
-    t.match(res, /^(.*): [a-z0-9]{40}/, 'got branch and commit');
+    t.match(res, /^(.*): [a-z0-9]{7}/, 'got branch and commit');
   });
 });
