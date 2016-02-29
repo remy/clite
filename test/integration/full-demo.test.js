@@ -19,6 +19,7 @@ test('throws when no package available', function (t) {
     },
     options: ['grep']
   }).then(function (res) {
+    t.deepEqual(res.args._, [], 'no supplementary args');
     t.equal(res.args.grep, 'words', 'options found');
     t.equal(res.args.debug, true, 'debug found');
     t.equal(res.args.dev, false, 'dev set found');

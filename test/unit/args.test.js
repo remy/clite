@@ -74,6 +74,7 @@ test('commands without config', function (t) {
 test('commands with config', function (t) {
   var res = args(sampleArgs.concat('foo'), { commands: { foo: 'bar' } });
   t.equal(res.command, 'bar', 'command found');
+  t.deepEqual(res._, [], 'final args is empty');
   t.end();
 });
 
