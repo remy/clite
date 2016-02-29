@@ -1,12 +1,8 @@
 # clite
 
-Pronounced: *slight*.
+A CLI lite framework for your node CLI utilities. Provides basic routine functionality that you don't want to write yourself. Pronounced: *slight*.
 
-[![Build Status](https://travis-ci.org/remy/clite.svg)](https://travis-ci.org/remy/clite) [![Donate](https://img.shields.io/badge/donate-%20%E2%9D%A4%20-green.svg)](https://www.paypal.me/rem)
-
-## Synopsis
-
-A *CLI lite* framework for your node CLI utilities. Provides basic routine functionality that you don't want to write yourself.
+[![Build Status](https://travis-ci.org/remy/clite.svg)](https://travis-ci.org/remy/clite) [![Donate](https://img.shields.io/badge/support-%20%E2%9D%A4%20-56c838.svg)](https://www.paypal.me/rem)
 
 ## Features
 
@@ -30,7 +26,29 @@ var clite = require('clite');
 clite(require('./config'));
 ```
 
-The config drives how your code is run from the CLI.
+The config drives how your code is run from the CLI. Note that by default, clite expects your code to return a string (which will be echo'ed on `STDOUT`) or throw an error that also echos the `error.message` on `STDERR`.
+
+## Debugging
+
+To see more details on what clite is parsing and see any stacktraces inside of clite, use the `DEBUG=clite` env value:
+
+```bash
+DEBUG=clite <your-demo-app>
+```
+
+## Return objects in commands (and async use)
+
+Your command modules are called inside of promises. The clite framework expects a `string` to be returned out of the promises to be printed on `STDOUT`.
+
+If your command needs to make use of asnychonous programming, return a promise, and resolve the promise with a string. For example:
+
+```js
+module.exports = function echoLater(args) {
+  return new Promise(resolve =>
+    setTimeout(() => resolve('All done'), 1000)
+  );
+};
+```
 
 ## Config
 
@@ -158,11 +176,13 @@ module.exports = {
 };
 ```
 
-**Important note:** where `_` is used, this is the fallback for if the user has not specified a value for a particular command.
+**Important note:** where `_` is used, this is the fallback for if the user has not specified a value for a particular command. If the default is not found, clite will revert to loading "`.`" (aka the index of package directory).
 
-## Filing issues & PRs
+## Feedback, filing issues & pull requests
 
 Please see the [contributing](https://github.com/remy/clite/blob/master/.github/CONTRIBUTING.md) for guidelines.
+
+All feedback is welcome ❤
 
 ## License
 
