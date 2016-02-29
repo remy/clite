@@ -178,11 +178,27 @@ module.exports = {
 
 **Important note:** where `_` is used, this is the fallback for if the user has not specified a value for a particular command. If the default is not found, clite will revert to loading "`.`" (aka the index of package directory).
 
+## FAQTIMU
+
+Frequently asked questions...that I made up:
+
+### I see `undefined` at the end of the output
+
+This is because clite is logging out your content, then your code is including a final log, such as:
+
+```js
+clite(require('./config')).then(console.log);
+```
+
+To fix this, remove the final `.then(console.log)`.
+
+### Can I get the original CLI arguments?
+
+The original CLI args is on `process.argv`, if you want everything that wasn't a boolean or an option, then this is in the command's `arg.argv` - which is usually the same as `arg._` except doesn't contain the path to `node`, the script that ran the code and if a command was matched, that command.
+
 ## Feedback, filing issues & pull requests
 
-Please see the [contributing](https://github.com/remy/clite/blob/master/.github/CONTRIBUTING.md) for guidelines.
-
-All feedback is welcome ❤
+Please see the [contributing](https://github.com/remy/clite/blob/master/.github/CONTRIBUTING.md) for guidelines. All feedback is welcome ❤
 
 ## License
 
