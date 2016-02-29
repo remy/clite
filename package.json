@@ -27,6 +27,7 @@
     "jscs": "^2.10.1",
     "mock-stdin": "^0.3.0",
     "proxyquire": "^1.7.4",
+    "rimraf": "^2.5.2",
     "semantic-release": "^4.3.5",
     "tap": "^5.4.3",
     "tap-only": "0.0.5"
