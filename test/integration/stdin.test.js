@@ -15,7 +15,8 @@ test('reads from stdin', function (t) {
   var p = clite({
     commands: {
       echo: './echo'
-    }
+    },
+    return: true,
   }, fixtures + '/basic-clite').then(function (res) {
     t.equals(res, body, 'echo ran and read from stdin');
     process.env.TAP = '1'; // restore tap

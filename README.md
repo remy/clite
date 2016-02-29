@@ -10,7 +10,7 @@ A *CLI lite* framework for your node CLI utilities. Provides basic routine funct
 
 ## Features
 
-- **version**: echo's current `package.json` version, or if omitted (if you're using [semantic-release](https://www.npmjs.com/semantic-release)) will echo the current branch & commit.
+- **version**: echo's current `package.json` version, or if omitted (if you're using [semantic-release](https://www.npmjs.com/semantic-release)) will echo the current branch & commit
 - **help**: simplifies loading and reading help files
 - **stdin**: automatically detects bodies on stdin and passes it as an argument to your code
 - **update notification**: uses [update-notifier](https://www.npmjs.com/update-notifier) to automatically notify your users of an update to your CLI tool
@@ -18,6 +18,7 @@ A *CLI lite* framework for your node CLI utilities. Provides basic routine funct
 - automatically creates aliases for all your CLI commands and options using [abbrev](https://www.npmjs.com/package/abbrev)
 - supports boolean flags, options and aliases using [minimist](https://www.npmjs.org/minimist)
 - promise based (note that promises are polyfilled in node < 4, using [es6-promise](https://www.npmjs.com/es6-promise))
+- command modules are lazy loaded, which reduces boot and exit time in your CLI tool
 
 ## Usage
 
@@ -26,7 +27,7 @@ After `npm install --save clite` to your project, the simplest CLI script contai
 ```js
 #!/usr/bin/env node
 var clite = require('clite');
-clite(require('./config')).then(console.log);
+clite(require('./config'));
 ```
 
 The config drives how your code is run from the CLI.
@@ -65,7 +66,7 @@ module.exports = {
 
 Although clite uses promises, your code does not need to use them (but you can if chose to), however, if you `throw` an error, this will echo to the terminal and `exit(1)` the program. The commands modules receive three arguments:
 
-- `args`: an object of the fully parsed CLI arguments, all command arguments are stored in `args._` as an array
+- `args`: an object of the fully parsed CLI arguments, all command arguments are stored in `args._` as an array (note that the array only contains all the remaining args not matched to flags or commands)
 - `settings`: the configuration of clite (including defaults)
 - `body`: the body of text if content was piped via `STDIN`
 
