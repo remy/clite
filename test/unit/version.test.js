@@ -29,7 +29,8 @@ test('test version from totally different directory', function (t) {
   // init the .git dir
   exec('git init', function (err, stdout, stderr) {
     if (err) {
-      t.bail('failed to git init');
+      console.log(err, stdout, stderr);
+      t.fail('failed to git init');
     }
 
     version(root).then(function (res) {

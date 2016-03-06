@@ -20,7 +20,7 @@
     },
     "ghooks": {
       "commit-msg": "validate-commit-msg",
-      "pre-push": "npm test"
+      "pre-push": "env && npm test"
     }
   },
   "keywords": [
