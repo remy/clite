@@ -27,7 +27,14 @@ test('test version from totally different directory', function (t) {
   process.chdir(dir);
 
   // init the .git dir
-  exec('git init', function (err, stdout, stderr) {
+  exec('git init', { cwd: dir,
+    env: {
+      PATH: process.env.PATH,
+      GIT_WORK_TREE: dir,
+      GIT_DIR: dir + '/.git',
+      GIT_INDEX_FILE: '',
+    },
+  }, function (err, stdout, stderr) {
     if (err) {
       console.log(err, stdout, stderr);
       t.fail('failed to git init');
