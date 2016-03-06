@@ -14,6 +14,15 @@
   "bin": {
     "clite": "cli/index.js"
   },
+  "config": {
+    "validate-commit-msg": {
+      "helpMessage": "\n-----------\n\nThere was a small validation problem with your commit message:\n\n> %s\n\nIt's not a huge problem, but a valid commit message will ensure\nwhether your commit triggers a release or not (and sometimes the\ncommit won't need to trigger a commit). If you really need to, you\ncan skip the validation using `git commit --no-verify`.\n\nIf your commit is a fix, it might want to be:\n\n> fix: storage bug\n\nOr a feature:\n\n> feat: added new storage process\n\nThere's also `docs`, `test` and `chore` and a few more. To read\nhow the commit message should be formatted, please see this short\npost: https://git.io/v2Nnm\n"
+    },
+    "ghooks": {
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm test"
+    }
+  },
   "keywords": [
     "cli",
     "terminal",
@@ -24,13 +33,15 @@
   "devDependencies": {
     "babel-cli": "^6.5.1",
     "babel-preset-es2015": "^6.5.0",
+    "ghooks": "^1.0.3",
     "jscs": "^2.10.1",
     "mock-stdin": "^0.3.0",
     "proxyquire": "^1.7.4",
     "rimraf": "^2.5.2",
     "semantic-release": "^4.3.5",
     "tap": "^5.4.3",
-    "tap-only": "0.0.5"
+    "tap-only": "0.0.5",
+    "validate-commit-msg": "^2.3.0"
   },
   "dependencies": {
     "abbrev": "^1.0.7",
