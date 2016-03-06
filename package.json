@@ -16,7 +16,7 @@
   },
   "config": {
     "validate-commit-msg": {
-      "helpMessage": "\n-----------\n\nThere was a small validation problem with your commit message:\n\n> %s\n\nIt's not a huge problem, but a valid commit message will ensure\nwhether your commit triggers a release or not (and sometimes the\ncommit won't need to trigger a commit). If you really need to, you\ncan skip the validation using `git commit --no-verify`.\n\nIf your commit is a fix, it might want to be:\n\n> fix: storage bug\n\nOr a feature:\n\n> feat: added new storage process\n\nThere's also `docs`, `test` and `chore` and a few more. To read\nhow the commit message should be formatted, please see this short\npost: https://git.io/v2Nnm\n"
+      "helpMessage": "\n-----------\n\nThere was a small validation problem with your commit message:\n\n> %s\n\nIt's not a huge problem, but a valid commit message will ensure\nwhether your commit triggers a release or not (and sometimes the\ncommit won't need to trigger a release). If you really need to, you\ncan skip the validation using `git commit --no-verify`.\n\nIf your commit is a fix, it might want to be:\n\n> fix: storage bug\n\nOr a feature:\n\n> feat: added new storage process\n\nThere's also `docs`, `test` and `chore` and a few more. To read\nhow the commit message should be formatted, please see this short\npost: https://git.io/v2Nnm\n"
     },
     "ghooks": {
       "commit-msg": "validate-commit-msg",
