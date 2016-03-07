@@ -91,7 +91,7 @@ Although clite uses promises, your code does not need to use them (but you can i
 For example, `lib/create-new-post` could contain:
 
 ```js
-module.exports = (args, settings, body) {
+module.exports = (args, settings, body) => {
   if (body) {
     // create the post in the db
     return new Post({
