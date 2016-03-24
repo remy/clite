@@ -78,6 +78,12 @@ test('commands with config', function (t) {
   t.end();
 });
 
+test('commands shortcuts', function (t) {
+  var res = args(sampleArgs.concat('f'), { commands: { foo: 'bar' } });
+  t.equal(res.command, 'bar', 'command found');
+  t.end();
+});
+
 test('commands not found and defaults', function (t) {
   var res = args(sampleArgs.concat('zoo'), { commands: { foo: 'bar', _: 'default' } });
   t.equal(res.command, 'default', 'command found');
