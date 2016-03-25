@@ -12,7 +12,7 @@ A CLI lite framework for your node CLI utilities. Provides basic routine functio
 - **update notification**: uses [update-notifier](https://www.npmjs.com/update-notifier) to automatically notify your users of an update to your CLI tool
 - on exceptions, will echo the error and quit with a non-zero exit code
 - automatically creates aliases for all your CLI commands and options using [abbrev](https://www.npmjs.com/package/abbrev)
-- supports boolean flags, options and aliases using [minimist](https://www.npmjs.org/minimist)
+- supports boolean flags, options and aliases using [yargs](https://www.npmjs.org/yargs)
 - promise based (note that promises are polyfilled in node < 4, using [es6-promise](https://www.npmjs.com/es6-promise))
 - command modules are lazy loaded, which reduces boot and exit time in your CLI tool
 

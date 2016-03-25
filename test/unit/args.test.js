@@ -41,18 +41,44 @@ test('bools don\'t lose internal defaults', function (t) {
 });
 
 test('mixed args', function (t) {
-  var res = args(sampleArgs.concat('--foo=10', '--bar=20'), {
-    booleans: ['foo'] // expect true/false
+  var res = args(sampleArgs.concat('--foo', '--bar=20'), {
+    booleans: ['foo', 'foosball'] // expect true/false
   });
   t.equal(res.foo, true, 'foo is true');
+  t.equal(res.foosball, false, 'foo did not clobber');
   t.equal(res.bar, 20, 'bar is 20');
   t.end();
 });
 
 test('flag shortcuts', function (t) {
-  var res = args(sampleArgs.concat('-f=10'), { booleans: ['foo', 'bar'] });
+  var res = args(sampleArgs.concat('-f=10'), { options: ['foo'], booleans: ['bar'] });
   t.equal(res.foo, 10, 'foo is 10');
   t.equal(res.bar, false, 'bar default position is false');
+  t.end();
+});
+
+test('auto camelcase', function (t) {
+  var res = args(sampleArgs.concat('--foo-bar=10'), { options: 'fooBar' });
+  t.equal(res.fooBar, 10, 'foo is 10');
+  t.end();
+});
+
+test('full yargs control', function (t) {
+  var res = args(sampleArgs.concat('--foo-bar=10'), {
+    yargs: {
+      bar: {
+        alias: 'foo-bar',
+        type: 'string'
+      }
+    }
+  });
+  t.equal(res.bar, '10', 'bar is a string 10');
+  t.end();
+});
+
+test('full yargs features', function (t) {
+  var res = args(sampleArgs.concat('--foo.bar=10'));
+  t.equal(res.foo.bar, 10, 'foo object { bar is 10 }');
   t.end();
 });
 
