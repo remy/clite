@@ -11,14 +11,35 @@ test('throws when no package available', function (t) {
   });
 });
 
-// test('throws when no package available (bad path)', t => {
-//   return clite({}, ['random/foo']).catch(e => {
-//     t.match(e.message, /no such file or directory/, 'throws when no package found');
-//   });
-// });
+test('throws when unknown command', t => {
+  process.argv = sampleArgs.concat('foo');
+  return clite({}, fixtures + '/basic-clite').then(res => {
+    t.fail('did not want: ' + res);
+  }).catch(e => {
+    t.equal(e.code, 'MODULE_NOT_FOUND', 'throws when unknown command');
+  });
+});
+
+test('throws when no command', t => {
+  process.argv = sampleArgs;
+  return clite({}, fixtures + '/basic-clite').then(res => {
+    t.fail('did not want: ' + res);
+  }).catch(e => {
+    t.equal(e.code, 'NO_COMMAND', 'throws when no command');
+  });
+});
+
+test('shows help when no args, default command and no stdin', function (t) {
+  process.argv = sampleArgs.slice(0);
+  return clite({ return: true }, fixtures + '/basic-clite').then(function (res) {
+    t.fail('should not succeed: ' + res);
+  }).catch(function (e) {
+    t.ok(true);
+  });
+});
 
 test('loads index.js from project root', function (t) {
-  return clite({}, fixtures + '/basic-clite').then(function (res) {
+  return clite({ commands: { _: '.' } }, fixtures + '/basic-clite').then(function (res) {
     t.equal(res, 'hello world', 'index.js ran');
   });
 });

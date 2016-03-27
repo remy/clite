@@ -92,49 +92,49 @@ test('alias have precedence', function (t) {
 
 test('commands without config', function (t) {
   var res = args(sampleArgs.concat('run', '-f=10'));
-  t.equal(res.command, '.', 'command defaulted to index');
+  t.equal(res.$_, 'run', 'command defaulted to index');
   t.equal(res.f, 10, 'alias won the value');
   t.end();
 });
 
 test('commands with config', function (t) {
   var res = args(sampleArgs.concat('foo'), { commands: { foo: 'bar' } });
-  t.equal(res.command, 'bar', 'command found');
+  t.equal(res.$_, 'bar', 'command found');
   t.deepEqual(res._, [], 'final args is empty');
   t.end();
 });
 
 test('commands shortcuts', function (t) {
   var res = args(sampleArgs.concat('f'), { commands: { foo: 'bar' } });
-  t.equal(res.command, 'bar', 'command found');
+  t.equal(res.$_, 'bar', 'command found');
   t.end();
 });
 
 test('commands not found and defaults', function (t) {
   var res = args(sampleArgs.concat('zoo'), { commands: { foo: 'bar', _: 'default' } });
-  t.equal(res.command, 'default', 'command found');
+  t.equal(res.$_, 'default', 'command found');
   t.end();
 });
 
 test('command magic defaults work', function (t) {
   var res = args(sampleArgs.concat('-v'));
-  t.equal(res.command, ':::./version', 'version worked');
+  t.equal(res.$_, ':::./version', 'version worked');
 
   var res2 = args(sampleArgs.concat('-h'));
-  t.equal(res2.command, ':::./help', 'help worked');
+  t.equal(res2.$_, ':::./help', 'help worked');
   t.end();
 });
 
 test('magic defaults don\'t eat user input', function (t) {
   var res = args(sampleArgs.concat('-v'), { booleans: ['version'] });
-  t.equal(res.command, '.', 'command defaulted');
+  // t.equal(res.$_, '.', 'command defaulted');
   t.equal(res.version, true, 'user version flag was kept');
   t.end();
 });
 
 test('options', function (t) {
   var res = args(sampleArgs.concat('-g', 'sed'), { options: ['grep'] });
-  t.equal(res.command, '.', 'command defaulted');
+  // t.equal(res.$_, '.', 'command defaulted');
   t.equal(res.grep, 'sed', 'option captured');
   t.end();
 });
