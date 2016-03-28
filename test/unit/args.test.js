@@ -1,8 +1,12 @@
 'use strict';
 var dist = require('./es5') ? 'dist' : 'lib';
 var test = require('tap-only');
-var args = require('../../' + dist + '/args');
+var argLib = require('../../' + dist + '/args');
 var sampleArgs = ['node', 'script.js'];
+
+function args(argv, options) {
+  return argLib(argv, options).args;
+}
 
 test('load', function (t) {
   t.isa(args, 'function', 'args is a function');

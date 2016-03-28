@@ -25,7 +25,7 @@ test('throws when no command', t => {
   return clite({}, fixtures + '/basic-clite').then(res => {
     t.fail('did not want: ' + res);
   }).catch(e => {
-    t.equal(e.code, 'NO_COMMAND', 'throws when no command');
+    t.equal(e.code, 'NO_HELP_CONFIGURED', 'throws when no command');
   });
 });
 
