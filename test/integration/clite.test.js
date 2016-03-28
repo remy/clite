@@ -11,7 +11,7 @@ test('throws when no package available', function (t) {
   });
 });
 
-test('throws when unknown command', t => {
+test('throws when unknown command', function (t) {
   process.argv = sampleArgs.concat('foo');
   return clite({}, fixtures + '/basic-clite').then(res => {
     t.fail('did not want: ' + res);
@@ -20,7 +20,7 @@ test('throws when unknown command', t => {
   });
 });
 
-test('throws when no command', t => {
+test('throws when no command', function (t) {
   process.argv = sampleArgs;
   return clite({}, fixtures + '/basic-clite').then(res => {
     t.fail('did not want: ' + res);
