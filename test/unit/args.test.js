@@ -142,3 +142,18 @@ test('options', function (t) {
   t.equal(res.grep, 'sed', 'option captured');
   t.end();
 });
+
+test('aliases options get abbreviated', function (t) {
+  var res = args(sampleArgs.concat('-f', 'foo'), { options: ['grep'], alias: { filter: 'grep' } });
+  t.equal(res.grep, 'foo', 'option captured');
+  t.end();
+});
+
+test('aliases commands get abbreviated', function (t) {
+  var res = args(sampleArgs.concat('f'), {
+    commands: { grep: '.' },
+    alias: { filter: 'grep' }
+  });
+  t.equal(res.$_, '.', 'command captured');
+  t.end();
+});

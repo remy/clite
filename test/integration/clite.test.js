@@ -25,7 +25,7 @@ test('throws when no command', function (t) {
   return clite({}, fixtures + '/basic-clite').then(function (res) {
     t.fail('did not want: ' + res);
   }).catch(function (e) {
-    t.equal(e.code, 'NO_HELP_CONFIGURED', 'throws when no command');
+    t.equal(e.code, 'BAD_ARGS', 'throws when no command');
   });
 });
 
