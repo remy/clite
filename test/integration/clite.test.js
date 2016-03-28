@@ -13,18 +13,18 @@ test('throws when no package available', function (t) {
 
 test('throws when unknown command', function (t) {
   process.argv = sampleArgs.concat('foo');
-  return clite({}, fixtures + '/basic-clite').then(res => {
+  return clite({}, fixtures + '/basic-clite').then(function (res) {
     t.fail('did not want: ' + res);
-  }).catch(e => {
+  }).catch(function (e) {
     t.equal(e.code, 'MODULE_NOT_FOUND', 'throws when unknown command');
   });
 });
 
 test('throws when no command', function (t) {
   process.argv = sampleArgs;
-  return clite({}, fixtures + '/basic-clite').then(res => {
+  return clite({}, fixtures + '/basic-clite').then(function (res) {
     t.fail('did not want: ' + res);
-  }).catch(e => {
+  }).catch(function (e) {
     t.equal(e.code, 'NO_HELP_CONFIGURED', 'throws when no command');
   });
 });
