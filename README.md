@@ -203,3 +203,5 @@ Please see the [contributing](https://github.com/remy/clite/blob/master/.github/
 ## License
 
 MIT / http://rem.mit-license.org
+
+💩
