@@ -1,6 +1,6 @@
 {
   "name": "clite",
-  "description": "A slight CLI framework",
+  "description": "A light CLI framework",
   "main": "./index.js",
   "scripts": {
     "lint": "jscs lib/*.js -v",
